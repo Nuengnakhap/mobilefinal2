@@ -79,15 +79,17 @@ class LoginScreenState extends State<LoginScreen> {
                     } else {
                       List lst_acc = await AccountProvider.db.getAllAccount();
                       Account acc;
+                      bool checked = false;
                       for (Account item in lst_acc) {
                         if (user == item.userId && pass == item.password) {
                           writeDataLocally(key: "userid", value: user);
                           writeDataLocally(key: "name", value: item.name);
                           acc = item;
+                          checked = true;
                           break;
                         }
                       }
-                      if (await getDataLocally('userid') != '') {
+                      if (await getDataLocally('userid') != '' && checked) {
                         CurrentAccount.id = acc.id;
                         CurrentAccount.name = acc.name;
                         CurrentAccount.age = acc.age;

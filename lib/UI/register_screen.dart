@@ -152,7 +152,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                 child: RaisedButton(
                   color: Theme.of(context).primaryColor,
                   textColor: Colors.white,
-                  onPressed: () {
+                  onPressed: () async {
                     _formKey.currentState.save();
                     if (userID.length < 6 || userID.length > 12) {
                       _scaffoldKey.currentState.showSnackBar(
@@ -167,7 +167,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                       _scaffoldKey.currentState.showSnackBar(
                           SnackBar(content: Text("Password มีความยาวมากกว่า 6")));
                     } else {
-                      AccountProvider.db.insertAccount(Account(userId: userID, name: name, age: int.parse(age), password: pass));
+                      await AccountProvider.db.insertAccount(Account(userId: userID, name: name, age: int.parse(age), password: pass));
                       Navigator.pop(context);
                     }
                   },
